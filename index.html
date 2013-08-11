@@ -4,17 +4,52 @@
     <title>Bootstrap 101 Template</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Bootstrap -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="css/bootstrap.css" rel="stylesheet" media="screen">
+    <!--Firebase JavaScript-->
+    <script src='https://cdn.firebase.com/v0/firebase.js'></script>
+    <!--AngularJS JavaScript -->
+    <script src="js/angular.min.js"></script>
+    <!--JavaScript plugins (requires jQuery) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.js"></script>
 </head>
 <body>
 <h1>Gitle Book</h1>
 
 
-<!--AngularJS JavaScript -->
-<script src="js/angular.min.js"></script>
-<!--JavaScript plugins (requires jQuery) -->
-<script src="http://code.jquery.com/jquery.js"></script>
-<!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="js/bootstrap.min.js"></script>
+<h3>Register eBook</h3>
+<form class="form-horizontal col-3 ">
+    <label for="titleInput">Title:</label>
+<input class="form-control" type='text' id='titleInput' placeholder='Title'> <br />
+<label for="authorInput">Author: </label>
+<input class="form-control" type='text' id='authorInput' placeholder='Author'> <br>
+<label for="genreInput">Genre:</label>
+<input class="form-control" type='text' id='genreInput' placeholder='Genre'> <br>
+<label for="priceInput">Price:</label>
+<input class="form-control" type='text' id='priceInput' placeholder='0.0$'> <br>
+<label for="ratingInput">Rating:</label>
+<input class="form-control" type='text' id='ratingInput' placeholder='1-6'> <br>
+<label for="ISBNInput">ISBN:</label>
+<input class="form-control" type='text' id='ISBNInput' placeholder='ISBN'> <br>
+</form>
+<script>
+    var myDataRef = new Firebase('https://gitlebook.firebaseio.com/');
+    $('#ISBNInput').keypress(function (e) {
+        if (e.keyCode == 13) {
+            var title = $('#titleInput').val();
+            var author = $('#authorInput').val();
+            var genre = $('#genreInput').val();
+            var price = $('#priceInput').val();
+            var rating = $('#ratingInput').val();
+            var isbn = $('#ISBNInput').val();
+            myDataRef.push({title: title, author: author, genre: genre, price: price, rating: rating, isbn: isbn});
+            $('#ISBNInput').val('');
+        }
+    });
+</script>
+
+
+
 </body>
 </html>
