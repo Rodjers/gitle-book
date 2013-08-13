@@ -1,0 +1,32 @@
+<div class="container">
+    <form ng-submit="books.add(book)" class="form-horizontal">
+        <fieldset>
+            <h3>Register eBook</h3>
+            <div class="input-group">
+                <span class="input-group-addon">Title:</span>
+                <input class="form-control" ng-model="book.title" type='text' id='titleInput' placeholder='Title'>
+            </div> <br>
+            <div class="input-group">
+                <span class="input-group-addon">Author: </span>
+                <input class="form-control" ng-model="book.author" type='text' id='authorInput' placeholder='Author'>
+            </div><br>
+            <div class="input-group">
+                <span class="input-group-addon">Genre: </span>
+                <input class="form-control" ng-model="book.genre" type='text' id='genreInput' placeholder='Genre'>
+            </div><br>
+            <div class="input-group">
+                <span class="input-group-addon">Price: </span>
+                <input class="form-control" ng-model="book.price" type='text' placeholder='0.0'>
+                <span class="input-group-addon">$</span>
+            </div><br>
+            <div class="input-group">
+                <span class="input-group-addon">Rating: </span>
+                <input class="form-control" ng-model="book.rating" type='text' id='ratingInput' placeholder='1-6'>
+            </div><br>
+            <div class="input-group">
+                <span class="input-group-addon">ISBN: </span>
+                <input class="form-control" ng-model="book.isbn" type='text' id='isbnInput' placeholder='ISBN'>
+            </div>
+        </fieldset>
+    </form>
+</div>
