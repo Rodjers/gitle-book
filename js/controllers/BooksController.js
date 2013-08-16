@@ -22,15 +22,17 @@ function BooksController($scope, angularFireCollection) {
 
     }
     $scope.delBook = function(bookIndex){
-        alert("Are you sure?");
-        $scope.books.remove($scope.books[bookIndex]);
+        if (confirm("Are you sure?")){
+            $scope.books.remove($scope.books[bookIndex]);
+        }
+
     }
 
 }
 function isValidISBN(isbn){
     isbn = isbn.replace(/\-/g,'');
     isbn = isbn.replace(/\+/g,'');
-    alert(isbn);
+
     var digits = isbn.split('');
     var sum = 0;
 
@@ -47,7 +49,6 @@ function isValidISBN(isbn){
         for (i = 0; i < digits.length; i++){
             sum += ((10-i) * parseInt(digits[i]));
         }
-        alert(sum + 'test');
         return ((sum % 11) == 0);
 
     }else
