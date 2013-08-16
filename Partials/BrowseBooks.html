@@ -2,7 +2,11 @@
 
     <h3>List of eBooks</h3>
 
-    <table class="table table-hover" ng>
+    <div class="input-group">
+        <span class="input-group-addon">Filter: </span><input ng-model="searchString" type="search" class="form-control col-3">
+    </div>
+    <br><br>
+    <table class="table table-hover">
         <thread>
             <tr>
                 <th>#</th>
@@ -16,7 +20,7 @@
             </tr>
         </thread>
         <tbody>
-            <tr ng-repeat="book in books">
+            <tr ng-repeat="book in books | filter: searchString">
                 <td>{{ $index + 1 }}</td>
                 <td>{{ book.title }}</td>
                 <td>{{ book.author }}</td>
