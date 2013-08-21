@@ -5,7 +5,8 @@
  * Time: 8:05 PM
  * To change this template use File | Settings | File Templates.
  */
-angular.module('gitleBook', ['firebase'], function($routeProvider) {
+var gitleBook = angular.module('gitleBook', ['firebase'], function($routeProvider)
+{
 
     $routeProvider
         .when('/register',
@@ -19,4 +20,67 @@ angular.module('gitleBook', ['firebase'], function($routeProvider) {
             templateUrl: 'Partials/BrowseBooks.html'
         })
         .otherwise({ redirectTo:'/register'});
+}).directive('validIsbn', function() {
+        return {
+            require: 'ngModel',
+            link: function(scope, elm, attrs, ctrl) {
+                ctrl.$parsers.unshift(function(viewValue) {
+                    if (isValidISBN(viewValue)) {
+                        ctrl.$setValidity('isbn', true);
+//                    return parseFloat(viewValue.replace(',', '.'));
+                        return viewValue
+                    } else {
+                        ctrl.$setValidity('isbn', false);
+                        return undefined;
+                    }
+                });
+            }
+        };
+    });
+
+var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d{1,2})?$/;
+gitleBook.directive('validPrice', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function(viewValue) {
+                if (FLOAT_REGEXP.test(viewValue)) {
+                    ctrl.$setValidity('price', true);
+                    return parseFloat(viewValue.replace(',', '.'));
+                } else {
+                    ctrl.$setValidity('price', false);
+                    return undefined;
+                }
+            });
+        }
+    };
 });
+
+    function isValidISBN(isbn){
+        isbn = isbn.replace(/\-/g,'');
+        isbn = isbn.replace(/\+/g,'');
+
+        var digits = isbn.split('');
+        var sum = 0;
+        var i = 0;
+
+        if (isbn.length == 13 && /^\d+$/.test(isbn) ){
+            for (i = 0; i < 13; i += 2){
+                sum += +parseInt(digits[i]);
+            }
+            for (i = 1; i < 12; i += 2){
+                sum += (3 * +parseInt(digits[i]));
+            }
+            return sum % 10 === 0;
+        }
+        else if (isbn.length == 10){
+            for (i = 0; i < digits.length; i++){
+                sum += ((10-i) * parseInt(digits[i]));
+            }
+            return ((sum % 11) == 0);
+
+        }else
+
+//    return ((sum % 11) == 0);
+            return false;
+    }

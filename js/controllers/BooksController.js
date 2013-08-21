@@ -13,7 +13,7 @@ function BooksController($scope, angularFireCollection) {
 
         if(isValidISBN(book['isbn'])){
             $scope.books.add(book);
-            alert("Book added!");
+            $('#bookAddedModal').modal('show');
             document.getElementById('registerBookForm').reset();
         }
         else {
@@ -28,31 +28,12 @@ function BooksController($scope, angularFireCollection) {
 
     }
 
+    $scope.editBook = function(index){
+        if (confirm("Are you sure?")){
+            $scope.books.update(book);
+        }
+
+
+
 }
-function isValidISBN(isbn){
-    isbn = isbn.replace(/\-/g,'');
-    isbn = isbn.replace(/\+/g,'');
-
-    var digits = isbn.split('');
-    var sum = 0;
-
-    if (isbn.length == 13 && /^\d+$/.test(isbn) ){
-        for (i = 0; i < 13; i += 2){
-            sum += +parseInt(digits[i]);
-        }
-        for (i = 1; i < 12; i += 2){
-            sum += (3 * +parseInt(digits[i]));
-        }
-        return sum % 10 === 0;
-    }
-    else if (isbn.length == 10){
-        for (i = 0; i < digits.length; i++){
-            sum += ((10-i) * parseInt(digits[i]));
-        }
-        return ((sum % 11) == 0);
-
-    }else
-
-//    return ((sum % 11) == 0);
-    return false;
 }

@@ -1,5 +1,5 @@
 <div class="container">
-    <form ng-submit="registerBook(book)" class="form-horizontal" id="registerBookForm">
+    <form name="form" ng-submit="registerBook(book)" class="form-horizontal" id="registerBookForm">
         <fieldset>
             <h3>Register eBook</h3>
             <div class="input-group">
@@ -34,12 +34,13 @@
             </div><br>
             <div class="input-group">
                 <span class="input-group-addon">Price: </span>
-                <input class="form-control" ng-model="book.price" type='number' placeholder='0.0' required>
+                <input class="form-control" valid-price ng-model="book.price" name="price" type='text' pattern="\d+.\d\d" placeholder='0.0' required>
                 <span class="input-group-addon">$</span>
+                <span class="input-group-btn" ng-show="form.price.$error.price">This is not a valid ISBN</span>
             </div><br>
             <div class="input-group">
                 <span class="input-group-addon">Rating: </span>
-                <select class="form-control" ng-model="book.rating" type='number' id='ratingInput' required="true" required>
+                <select class="form-control" ng-model="book.rating" type='number' id='ratingInput' required>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -50,10 +51,28 @@
             </div><br>
             <div class="input-group">
                 <span class="input-group-addon">ISBN: </span>
-                <input class="form-control" ng-model="book.isbn" type='text' id='isbnInput' placeholder='ISBN' required>
+
+                <input valid-isbn class="form-control" name="isbn" ng-model="book.isbn" type='text' id='isbninput' placeholder='ISBN' >
+                <span class="input-group-btn" ng-show="form.isbn.$error.isbn">This is not a valid ISBN</span>
             </div>
-            <br><input class="btn btn-default" type="submit" value="Register eBook">
+            <br><input class="btn btn-default" ng-disabled="form.$invalid || form.book.isbn.$error.isbn" type="submit" value="Register eBook">
             <input class="btn btn-default" type="reset" value="Clear form">
         </fieldset>
     </form>
+    <div class="modal fade" id="bookAddedModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Book added!</h4>
+                </div>
+                <div class="modal-body">
+                    <p>The book {{ book.title }} has been added to the registry</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
 </div>
