@@ -20,23 +20,45 @@ var gitleBook = angular.module('gitleBook', ['firebase'], function($routeProvide
             templateUrl: 'Partials/BrowseBooks.html'
         })
         .otherwise({ redirectTo:'/register'});
-}).directive('validIsbn', function() {
+});
+
+gitleBook.directive('validIsbn', function() {
         return {
             require: 'ngModel',
             link: function(scope, elm, attrs, ctrl) {
                 ctrl.$parsers.unshift(function(viewValue) {
                     if (isValidISBN(viewValue)) {
-                        ctrl.$setValidity('isbn', true);
+                        scope.isbn = true;
+//                        ctrl.$setValidity('isbn', true);
 //                    return parseFloat(viewValue.replace(',', '.'));
                         return viewValue
                     } else {
-                        ctrl.$setValidity('isbn', false);
+                        scope.isbn = false;
+//                        ctrl.$setValidity('isbn', false);
                         return undefined;
                     }
                 });
             }
         };
     });
+
+gitleBook.directive('searchIsbn', function() {
+    return {
+        require: 'ngModel',
+        link: function(scope, elm, attrs, ctrl) {
+            ctrl.$parsers.unshift(function(viewValue) {
+                if (isValidISBN(viewValue)) {
+                    ctrl.$setValidity('isbn', true);
+//                    return parseFloat(viewValue.replace(',', '.'));
+                    return viewValue
+                } else {
+                    ctrl.$setValidity('isbn', false);
+                    return undefined;
+                }
+            });
+        }
+    };
+});
 
 var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d{1,2})?$/;
 gitleBook.directive('validPrice', function() {

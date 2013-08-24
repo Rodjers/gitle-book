@@ -55,7 +55,7 @@
                 <input valid-isbn class="form-control" name="isbn" ng-model="book.isbn" type='text' id='isbninput' placeholder='ISBN' >
                 <span class="input-group-btn" ng-show="form.isbn.$error.isbn">This is not a valid ISBN</span>
             </div>
-            <br><input class="btn btn-default" ng-disabled="form.$invalid || form.book.isbn.$error.isbn" type="submit" value="Register eBook">
+            <br><input class="btn btn-default" ng-disabled="form.$invalid || form.isbn.$error.isbn" type="submit" value="Register eBook" required>
             <input class="btn btn-default" type="reset" value="Clear form">
         </fieldset>
     </form>

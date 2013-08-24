@@ -3,7 +3,7 @@
     <h3>List of eBooks</h3>
 
     <div class="input-group">
-        <span class="input-group-addon">Filter: </span><input ng-model="searchString" type="search" class="form-control col-3">
+        <span valid-isbn class="input-group-addon">Filter: </span><input ng-model="search" type="search" class="form-control col-3">
     </div>
     <br><br>
     <table class="table table-hover">
@@ -20,9 +20,9 @@
             </tr>
         </thread>
         <tbody>
-            <tr ng-repeat="book in books | filter: searchString">
+            <tr ng-repeat="book in books | isbnAvareFilter:search  |orderBy:books.rating">
                 <td id="index{{ $index }}">{{ $index + 1 }}</td>
-                <td id="title{{ $index }}">{{ book.title }}</td>
+                <td id="title{{ $index }}">{{ book.title}}</td>
                 <td id="author{{ $index }}">{{ book.author }}</td>
                 <td id="genre{{ $index }}">{{ book.genre }}</td>
                 <td id="rating{{ $index }}">{{ book.rating }}</td>
