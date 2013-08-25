@@ -3,7 +3,7 @@
     <h3>List of eBooks</h3>
 
     <div class="input-group">
-        <span valid-isbn class="input-group-addon">Filter: </span><input ng-model="search" type="search" class="form-control col-3">
+        <label for="bookFilter" class="input-group-addon">Filter: </label><input id="bookFilter" ng-model="search" type="search" class="form-control col-3">
     </div>
     <br><br>
     <table class="table table-hover">
@@ -21,78 +21,102 @@
         </thread>
         <tbody>
             <tr ng-repeat="book in books | isbnAvareFilter:search  |orderBy:books.rating">
-                <td id="index{{ $index }}">{{ $index + 1 }}</td>
-                <td id="title{{ $index }}">{{ book.title}}</td>
-                <td id="author{{ $index }}">{{ book.author }}</td>
-                <td id="genre{{ $index }}">{{ book.genre }}</td>
-                <td id="rating{{ $index }}">{{ book.rating }}</td>
-                <td id="price{{ $index }}">{{ book.price }}$</td>
-                <td id="isbn{{ $index }}">{{ book.isbn }}</td>
-                <td id="icon{{ $index }}"><span id="editIcon{{ $index }}" class="glyphicon glyphicon-edit"></span>
-                    <span id="trashIcon{{ $index }}" ng-click="delBook($index)" class="glyphicon glyphicon-trash"></span><td>
+                <td>{{ $index + 1 }}</td>
+                <td>{{ book.title}}</td>
+                <td>{{ book.author }}</td>
+                <td>{{ book.genre }}</td>
+                <td>{{ book.rating }}</td>
+                <td>{{ book.price }}$</td>
+                <td>{{ book.isbn }}</td>
+                <td>
+                    <span ng-click="borrowBookModal($index)" class="glyphicon glyphicon-book"></span>
+                    <span ng-click="editBookModal($index)" class="glyphicon glyphicon-edit"></span>
+                    <span ng-click="delBook($index)" class="glyphicon glyphicon-trash"></span>
+                <td>
             </tr>
         </tbody>
     </table>
-    <!--<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">-->
-        <!--<div class="modal-dialog">-->
-            <!--<div class="modal-content">-->
-                <!--<div class="modal-header">-->
-                    <!--<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>-->
-                    <!--<h3 class="modal-title">Edit eBook</h3>-->
-                <!--</div>-->
-                <!--<div class="modal-body">-->
-                            <!--<div class="input-group">-->
-                                <!--<span class="input-group-addon">Title:</span>-->
-                                <!--<input class="form-control" value="{{ books[1].title }}" type='text' id='titleInput' placeholder='Title' required>-->
-                            <!--</div> <br>-->
-                            <!--<div class="input-group">-->
-                                <!--<span class="input-group-addon">Author: </span>-->
-                                <!--<input class="form-control" ng-model="books[1].author" type='text' id='authorInput' placeholder='Author' required>-->
-                            <!--</div><br>-->
-                            <!--<div class="input-group">-->
-                                <!--<span class="input-group-addon">Genre: </span>-->
-                                <!--<select class="form-control" ng-model="books[1].genre" type='text' id='genreInput' required>-->
-                                    <!--<option>Fantasy</option>-->
-                                    <!--<option>Biography</option>-->
-                                    <!--<option>Children's book</option>-->
-                                    <!--<option>Classic</option>-->
-                                    <!--<option>Graphic novel</option>-->
-                                    <!--<option>History</option>-->
-                                    <!--<option>Horror</option>-->
-                                    <!--<option>Music</option>-->
-                                    <!--<option>Non-fiction</option>-->
-                                    <!--<option>Romance</option>-->
-                                    <!--<option>Poetry</option>-->
-                                    <!--<option>Sci-fi</option>-->
-                                    <!--<option>Sport</option>-->
-                                    <!--<option>Thriller</option>-->
-                                    <!--<option>Travel</option>-->
-                                    <!--<option>War</option>-->
-                                    <!--<option>Other</option>-->
-                                <!--</select>-->
-                            <!--</div><br>-->
-                            <!--<div class="input-group">-->
-                                <!--<span class="input-group-addon">Price: </span>-->
-                                <!--<input class="form-control" ng-model="books[1].price" type='text' pattern="\d+.\d\d" placeholder='0.0' required>-->
-                                <!--<span class="input-group-addon">$</span>-->
-                            <!--</div><br>-->
-                            <!--<div class="input-group">-->
-                                <!--<span class="input-group-addon">Rating: </span>-->
-                                <!--<select class="form-control" ng-model="books[1].rating" type='number' id='ratingInput' required="true" required>-->
-                                    <!--<option>1</option>-->
-                                    <!--<option>2</option>-->
-                                    <!--<option>3</option>-->
-                                    <!--<option>4</option>-->
-                                    <!--<option>5</option>-->
-                                    <!--<option>6</option>-->
-                                <!--</select>-->
-                            <!--</div><br>-->
-                <!--</div>-->
-                <!--<div class="modal-footer">-->
-                    <!--<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>-->
-                    <!--<button type="button" class="btn btn-primary" ng-click="books.update(books[1])">Save changes</button>-->
-                <!--</div>-->
-            <!--</div>&lt;!&ndash; /.modal-content &ndash;&gt;-->
-        <!--</div>&lt;!&ndash; /.modal-dialog &ndash;&gt;-->
-    <!--</div>&lt;!&ndash; /.modal &ndash;&gt;-->
+    <a data-toggle="modal" href="#borrowBookModal" class="btn btn-primary btn-lg">Launch Modal</a>
+    <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h3 class="modal-title">Edit eBook</h3>
+                </div>
+                <div class="modal-body">
+                            <div class="input-group">
+                                <label for="titleInput" class="input-group-addon">Title:</label>
+                                <input class="form-control" ng-model="editBook.title" type='text' id='titleInput' placeholder='Title' required>
+                            </div> <br>
+                            <div class="input-group">
+                                <label for="authorInput" class="input-group-addon">Author: </label>
+                                <input class="form-control" ng-model="editBook.author" type='text' id='authorInput' placeholder='Author' required>
+                            </div><br>
+                            <div class="input-group">
+                                <label for="genreInput" class="input-group-addon">Genre: </label>
+                                <select class="form-control" ng-model="editBook.genre" id='genreInput' required>
+                                    <option>Fantasy</option>
+                                    <option>Biography</option>
+                                    <option>Children's book</option>
+                                    <option>Classic</option>
+                                    <option>Graphic novel</option>
+                                    <option>History</option>
+                                    <option>Horror</option>
+                                    <option>Music</option>
+                                    <option>Non-fiction</option>
+                                    <option>Romance</option>
+                                    <option>Poetry</option>
+                                    <option>Sci-fi</option>
+                                    <option>Sport</option>
+                                    <option>Thriller</option>
+                                    <option>Travel</option>
+                                    <option>War</option>
+                                    <option>Other</option>
+                                </select>
+                            </div><br>
+                            <div class="input-group">
+                                <label for="priceInput" class="input-group-addon">Price: </label>
+                                <input class="form-control" ng-model="editBook.price" type='text' id="priceInput" pattern="\d+.\d\d" placeholder='0.0' required>
+                                <span class="input-group-addon">$</span>
+                            </div><br>
+                            <div class="input-group">
+                                <label for="ratingInput" class="input-group-addon">Rating: </label>
+                                <select class="form-control" ng-model="editBook.rating" id='ratingInput' required>
+                                    <option>1</option>
+                                    <option>2</option>
+                                    <option>3</option>
+                                    <option>4</option>
+                                    <option>5</option>
+                                    <option>6</option>
+                                </select>
+                            </div><br>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="editBookFn(editBook, index)">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="borrowBookModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Borrow eBook</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="input-group">
+                        <span class="input-group-addon" ng-model="borrower.index">Name</span>
+                        <input ng-model="borrower.name" type="text">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="borrowBook(borrower.name, index)">Borrow book</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

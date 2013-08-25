@@ -3,16 +3,16 @@
         <fieldset>
             <h3>Register eBook</h3>
             <div class="input-group">
-                <span class="input-group-addon">Title:</span>
+                <label for="titleInput" class="input-group-addon">Title:</label>
                 <input class="form-control" ng-model="book.title" type='text' id='titleInput' placeholder='Title' required>
             </div> <br>
             <div class="input-group">
-                <span class="input-group-addon">Author: </span>
+                <label for="authorInput" class="input-group-addon">Author: </label>
                 <input class="form-control" ng-model="book.author" type='text' id='authorInput' placeholder='Author' required>
             </div><br>
             <div class="input-group">
-                <span class="input-group-addon">Genre: </span>
-                <select class="form-control" ng-model="book.genre" type='text' id='genreInput' required>
+                <label for="genreInput" class="input-group-addon">Genre: </label>
+                <select class="form-control" ng-model="book.genre" id='genreInput' required>
                     <option>Fantasy</option>
                     <option>Biography</option>
                     <option>Children's book</option>
@@ -33,14 +33,14 @@
                 </select>
             </div><br>
             <div class="input-group">
-                <span class="input-group-addon">Price: </span>
-                <input class="form-control" valid-price ng-model="book.price" name="price" type='text' pattern="\d+.\d\d" placeholder='0.0' required>
+                <label for="priceInput" class="input-group-addon">Price: </label>
+                <input class="form-control" valid-price id="priceInput" ng-model="book.price" name="price" type='text' pattern="\d+.\d\d" placeholder='0.0' required>
                 <span class="input-group-addon">$</span>
                 <span class="input-group-btn" ng-show="form.price.$error.price">This is not a valid ISBN</span>
             </div><br>
             <div class="input-group">
-                <span class="input-group-addon">Rating: </span>
-                <select class="form-control" ng-model="book.rating" type='number' id='ratingInput' required>
+                <label for="ratingInput" class="input-group-addon">Rating: </label>
+                <select class="form-control" ng-model="book.rating" id='ratingInput' required>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -50,7 +50,7 @@
                 </select>
             </div><br>
             <div class="input-group">
-                <span class="input-group-addon">ISBN: </span>
+                <label for="isbninput" class="input-group-addon">ISBN: </label>
 
                 <input valid-isbn class="form-control" name="isbn" ng-model="book.isbn" type='text' id='isbninput' placeholder='ISBN' >
                 <span class="input-group-btn" ng-show="form.isbn.$error.isbn">This is not a valid ISBN</span>
@@ -72,7 +72,7 @@
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
-            </div><!-- /.modal-content -->
-        </div><!-- /.modal-dialog -->
-    </div><!-- /.modal -->
+            </div>
+        </div>
+    </div>
 </div>
