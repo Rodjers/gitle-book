@@ -1,7 +1,6 @@
 <div class="container">
 
     <h3>List of eBooks</h3>
-
     <div class="input-group">
         <label for="bookFilter" class="input-group-addon">Filter: </label><input id="bookFilter" ng-model="search" type="search" class="form-control col-3">
     </div>
@@ -25,7 +24,7 @@
                 <td>{{ book.title}}</td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.genre }}</td>
-                <td>{{ book.rating }}</td>
+                <td><star-rating rating="{{ book.rating }}"></star-rating></td>
                 <td>{{ book.price }}$</td>
                 <td>{{ book.isbn }}</td>
                 <td>
@@ -36,7 +35,6 @@
             </tr>
         </tbody>
     </table>
-    <a data-toggle="modal" href="#borrowBookModal" class="btn btn-primary btn-lg">Launch Modal</a>
     <div class="modal fade" id="editBookModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -108,12 +106,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="input-group">
-                        <span class="input-group-addon" ng-model="borrower.index">Name</span>
-                        <input ng-model="borrower.name" type="text">
+                        <label for="borrowerName" class="input-group-addon" ng-model="borrower.index">Name</label>
+                        <input id="borrowerName"  ng-model="borrower.name" type="text">
+                    </div>
+                    <div ng-show="alertshow" id="duplicateBorrowerAlert" class="alert alert-warning">
+                        {{ borrowerName }} has already borrowed this book.
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="borrowBook(borrower.name, index)">Borrow book</button>
+                    <button type="button" class="btn btn-default" ng-click="borrowBook(borrower.name, index)">Borrow book</button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>

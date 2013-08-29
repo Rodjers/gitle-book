@@ -54,22 +54,42 @@ function BooksController($scope, angularFireCollection) {
     };
 
     $scope.borrowBook = function(name, index){
-        var loaner = {Name: name};
-        var book = $scope.books[index];
-        if (book.loaners == null){
-            book.loaners = [];
-            book.loaners.push(loaner);
-            $scope.books.update(book);
-            alert('First Book loaned');
+        var duplicate = false;
+        var loaner;
+        $scope.alertshow = false;
+        $scope.borrowerName = name;
+
+        for (var i in $scope.books[index].loaners){
+            loaner = $scope.books[index].loaners[i];
+            if (loaner.Name == name){
+
+                duplicate = true;
+            }
+        }
+
+        if (duplicate){
+            $scope.alertshow = true;
         }
         else {
-            book.loaners.push(loaner);
-            $scope.books.update(book);
-            alert('Book loaned');
+            loaner = {Name: name};
+            var book = $scope.books[index];
+            if (book.loaners == null){
+                book.loaners = [];
+                book.loaners.push(loaner);
+                $scope.books.update(book);
+                alert('First Book loaned');
+            }
+            else {
+                book.loaners.push(loaner);
+                $scope.books.update(book);
+                alert('Book loaned');
+            }
+            $('#borrowBookModal').modal('hide');
         }
 
     };
     $scope.borrowBookModal= function(index){
+        $scope.alertshow = false;
         $scope.index = index;
         $('#borrowBookModal').modal("show");
     };

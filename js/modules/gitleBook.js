@@ -78,6 +78,48 @@ gitleBook.directive('validPrice', function() {
     };
 });
 
+gitleBook.directive('starRating', function() {
+
+
+    return {
+        restrict: 'E',
+        replace: true,
+        scope: {rating:'@rating'},
+        template: '<div>' +
+                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+                '</div>',
+        link: function(scope, element, attrs){
+            scope.$watch('rating', function(newValue, oldValue){
+                for(var i = 0; i < 5; i++ ){
+                    if(i < newValue){
+
+                        angular.element(element.children()[i]).removeClass('glyphicon-star-empty');
+                        angular.element(element.children()[i]).addClass('glyphicon-star');
+                    }
+                    else {
+                        angular.element(element.children()[i]).removeClass('glyphicon-star');
+                        angular.element(element.children()[i]).addClass('glyphicon-star-empty');
+                    }
+                }
+            });
+
+
+
+
+//            for(var i in angular.element(element.children())){
+//                alert(i);
+//                i.addClass('glyphicon glyphicon-star')
+//            }
+
+
+        }
+    };
+});
+
     function isValidISBN(isbn){
         isbn = isbn.replace(/\-/g,'');
         isbn = isbn.replace(/\+/g,'');
