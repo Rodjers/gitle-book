@@ -19,7 +19,7 @@
             </tr>
         </thread>
         <tbody>
-            <tr ng-repeat="book in books | isbnAvareFilter:search  |orderBy:books.rating">
+            <tr ng-repeat="book in books | isbnAvareFilter:search  |orderBy:book.rating">
                 <td>{{ $index + 1 }}</td>
                 <td>{{ book.title}}</td>
                 <td>{{ book.author }}</td>

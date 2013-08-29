@@ -40,6 +40,8 @@ function BooksController($scope, angularFireCollection) {
         $scope.books[index].rating = book.rating;
         $scope.books[index].price = book.price;
 
+        $scope.books.update($scope.books[index]);
+
     };
     $scope.editBookModal = function(index){
         $scope.index = index;
