@@ -38,22 +38,16 @@
                 <span class="input-group-addon">$</span>
                 <span class="input-group-btn" ng-show="form.price.$error.price">This is not a valid ISBN</span>
             </div><br>
-            <div class="input-group">
-                <label for="ratingInput" class="input-group-addon">Rating: </label>
-                <select class="form-control" ng-model="book.rating" id='ratingInput' required>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                    <option>6</option>
-                </select>
-            </div><br>
+
             <div class="input-group">
                 <label for="isbninput" class="input-group-addon">ISBN: </label>
 
                 <input valid-isbn class="form-control" name="isbn" ng-model="book.isbn" type='text' id='isbninput' placeholder='ISBN' >
                 <span class="input-group-btn" ng-show="form.isbn.$error.isbn">This is not a valid ISBN</span>
+            </div><br>
+            <div class="input-group">
+                <label style="float: left" >Rating:  </label>
+                <star-rating-input numberOfStars="6" model="book.rating"></star-rating-input>
             </div>
             <br><input class="btn btn-default" ng-disabled="form.$invalid || form.isbn.$error.isbn" type="submit" value="Register eBook" required>
             <input class="btn btn-default" type="reset" value="Clear form">
@@ -75,4 +69,5 @@
             </div>
         </div>
     </div>
+
 </div>

@@ -24,7 +24,7 @@
                 <td>{{ book.title}}</td>
                 <td>{{ book.author }}</td>
                 <td>{{ book.genre }}</td>
-                <td><star-rating rating="{{ book.rating }}"></star-rating></td>
+                <td><star-rating numberOfStars="6" rating="{{ book.rating }}"></star-rating></td>
                 <td>{{ book.price }}$</td>
                 <td>{{ book.isbn }}</td>
                 <td>
@@ -78,17 +78,10 @@
                                 <input class="form-control" ng-model="editBook.price" type='text' id="priceInput" pattern="\d+.\d\d" placeholder='0.0' required>
                                 <span class="input-group-addon">$</span>
                             </div><br>
-                            <div class="input-group">
-                                <label for="ratingInput" class="input-group-addon">Rating: </label>
-                                <select class="form-control" ng-model="editBook.rating" id='ratingInput' required>
-                                    <option>1</option>
-                                    <option>2</option>
-                                    <option>3</option>
-                                    <option>4</option>
-                                    <option>5</option>
-                                    <option>6</option>
-                                </select>
-                            </div><br>
+                    <div class="input-group">
+                        <label style="float: left" >Rating:  </label>
+                        <star-rating-input numberofstars="6" model="editBook.rating"></star-rating-input>
+                    </div><br>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

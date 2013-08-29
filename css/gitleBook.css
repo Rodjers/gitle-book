@@ -1,0 +1,10 @@
+.star-rating {
+    float: left;
+    unicode-bidi: bidi-override;
+    direction: rtl;
+}
+
+.star-rating > span:hover:before,
+.star-rating > span:hover ~ span:before {
+    content: "\e006";
+}

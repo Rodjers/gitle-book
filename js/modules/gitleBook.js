@@ -78,44 +78,93 @@ gitleBook.directive('validPrice', function() {
     };
 });
 
+gitleBook.directive('starRatingInput', function() {
+
+
+    return {
+        restrict: 'E',
+        replace: true,
+        template: '<div class="star-rating">' +
+            '</div>',
+
+        compile: function(tElement, tAttr){
+            var numberOfStars = 8;
+            if(tAttr.numberofstars != undefined){
+                numberOfStars = tAttr.numberofstars;
+            }
+            var child = '<span class="glyphicon glyphicon-star-empty"></span>';
+            for(var n = 0; n < numberOfStars; n++){
+                var m = numberOfStars - n;
+                angular.element(tElement).append(child);
+                angular.element(tElement.children()[n]).attr('ng-click', tAttr.model + ' = ' + m);
+            }
+
+            return function(scope, element, attrs){
+
+
+                scope.$watch(attrs.model, function(newValue, oldValue){
+                    for(var i = (numberOfStars - 1); i > -1; i-- ){
+                        if(i > (numberOfStars - 1 - newValue)){
+
+                            angular.element(element.children()[i]).removeClass('glyphicon-star-empty');
+                            angular.element(element.children()[i]).addClass('glyphicon-star');
+                        }
+                        else {
+                            angular.element(element.children()[i]).removeClass('glyphicon-star');
+                            angular.element(element.children()[i]).addClass('glyphicon-star-empty');
+                        }
+                    }
+                });
+            }
+        }
+    };
+});
+
+function setBookRating(rating){
+
+}
+
 gitleBook.directive('starRating', function() {
 
 
     return {
         restrict: 'E',
         replace: true,
-        scope: {rating:'@rating'},
+        scope: {rating: '@rating'},
         template: '<div>' +
-                    '<span class="glyphicon glyphicon-star-empty"></span>' +
-                    '<span class="glyphicon glyphicon-star-empty"></span>' +
-                    '<span class="glyphicon glyphicon-star-empty"></span>' +
-                    '<span class="glyphicon glyphicon-star-empty"></span>' +
-                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+//                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+//                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+//                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+//                    '<span class="glyphicon glyphicon-star-empty"></span>' +
+//                    '<span class="glyphicon glyphicon-star-empty"></span>' +
                 '</div>',
-        link: function(scope, element, attrs){
-            scope.$watch('rating', function(newValue, oldValue){
-                for(var i = 0; i < 5; i++ ){
-                    if(i < newValue){
+        compile: function (tElement, tAttr){
 
-                        angular.element(element.children()[i]).removeClass('glyphicon-star-empty');
-                        angular.element(element.children()[i]).addClass('glyphicon-star');
+            var numberOfStars = 6;
+            if(tAttr.numberofstars != undefined){
+                numberOfStars = tAttr.numberofstars;
+            }
+            var child = '<span class="glyphicon glyphicon-star-empty"></span>';
+            for(var n = 0; n < numberOfStars; n++){
+                var m = numberOfStars - n;
+                angular.element(tElement).append(child);
+            }
+
+            return function(scope, element, attrs){
+                scope.$watch('rating', function(newValue, oldValue){
+                    for(var i = 0; i < numberOfStars; i++ ){
+                        if(i < newValue){
+
+                            angular.element(element.children()[i]).removeClass('glyphicon-star-empty');
+                            angular.element(element.children()[i]).addClass('glyphicon-star');
+                        }
+                        else {
+                            angular.element(element.children()[i]).removeClass('glyphicon-star');
+                            angular.element(element.children()[i]).addClass('glyphicon-star-empty');
+                        }
                     }
-                    else {
-                        angular.element(element.children()[i]).removeClass('glyphicon-star');
-                        angular.element(element.children()[i]).addClass('glyphicon-star-empty');
-                    }
-                }
-            });
-
-
-
-
-//            for(var i in angular.element(element.children())){
-//                alert(i);
-//                i.addClass('glyphicon glyphicon-star')
-//            }
-
-
+                });
+            }
         }
     };
 });
