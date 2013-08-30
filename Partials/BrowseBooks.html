@@ -27,11 +27,11 @@
                 <td><star-rating numberOfStars="6" rating="{{ book.rating }}"></star-rating></td>
                 <td>{{ book.price }}$</td>
                 <td>{{ book.isbn }}</td>
-                <td class="tooltip-icon">
-                    <span data-toggle="tooltip" data-placement="top" title="Borrow book" ng-click="borrowBookModal($index)" class="glyphicon glyphicon-book tooltip-icon"></span>
-                    <span data-toggle="tooltip" data-placement="bottom" title="Edit book" ng-click="editBookModal($index)" class="glyphicon glyphicon-edit tooltip-icon"></span>
-                    <span data-toggle="tooltip" data-placement="bottom" title="Delete book" ng-click="delBook($index)" class="glyphicon glyphicon-trash tooltip-icon"></span>
-                    <span data-toggle="tooltip" data-placement="bottom" title="List borrowers" ng-click="listBorrowersModal($index)" class="glyphicon glyphicon-list tooltip-icon"></span>
+                <td>
+                    <span title="Borrow book" ng-click="borrowBookModal($index)" class="glyphicon glyphicon-book"></span>
+                    <span title="Edit book" ng-click="editBookModal($index)" class="glyphicon glyphicon-edit"></span>
+                    <span title="Delete book" ng-click="delBookModal($index)" class="glyphicon glyphicon-trash"></span>
+                    <span title="List borrowers" ng-click="listBorrowersModal($index)" class="glyphicon glyphicon-list"></span>
                 <td>
             </tr>
         </tbody>
@@ -133,9 +133,22 @@
             </div>
         </div>
     </div>
-
-    <script>
-
-    </script>
+    <div class="modal fade" id="delBookModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Delete book</h4>
+                </div>
+                <div class="modal-body">
+                        <div>Are you sure you want to delete {{ deleteBook.title }}?</div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" ng-click="delBook(deleteIndex)" data-dismiss="modal">Delete</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 

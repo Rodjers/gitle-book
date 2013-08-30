@@ -28,10 +28,12 @@ function BooksController($scope, angularFireCollection) {
 
     };
     $scope.delBook = function(bookIndex){
-        if (confirm("Are you sure?")){
             $scope.books.remove($scope.books[bookIndex]);
-        }
 
+    };
+    $scope.delBookModal = function(bookIndex){
+        $scope.deleteIndex = bookIndex;
+        $('#delBookModal').modal('show');
     };
 
     $scope.editBookFn = function(book, index){
