@@ -23,24 +23,23 @@ var gitleBook = angular.module('gitleBook', ['firebase'], function($routeProvide
 });
 
 gitleBook.directive('validIsbn', function() {
-        return {
-            require: 'ngModel',
-            link: function(scope, elm, attrs, ctrl) {
-                ctrl.$parsers.unshift(function(viewValue) {
-                    if (isValidISBN(viewValue)) {
-                        scope.isbn = true;
+    return {
+        link: function(scope, elm, attrs, ctrl) {
+            scope.$watch('book.isbn', function(newValue, oldValue) {
+                if (isValidISBN(newValue)) {
+                    scope.isbn = true;
 //                        ctrl.$setValidity('isbn', true);
 //                    return parseFloat(viewValue.replace(',', '.'));
-                        return viewValue
-                    } else {
-                        scope.isbn = false;
+                    return newValue
+                } else {
+                    scope.isbn = false;
 //                        ctrl.$setValidity('isbn', false);
-                        return undefined;
-                    }
-                });
-            }
-        };
-    });
+                    return undefined;
+                }
+            });
+        }
+    };
+});
 
 gitleBook.directive('searchIsbn', function() {
     return {
@@ -63,14 +62,15 @@ gitleBook.directive('searchIsbn', function() {
 var FLOAT_REGEXP = /^\-?\d+((\.|\,)\d{1,2})?$/;
 gitleBook.directive('validPrice', function() {
     return {
-        require: 'ngModel',
         link: function(scope, elm, attrs, ctrl) {
-            ctrl.$parsers.unshift(function(viewValue) {
-                if (FLOAT_REGEXP.test(viewValue)) {
-                    ctrl.$setValidity('price', true);
-                    return parseFloat(viewValue.replace(',', '.'));
+            scope.$watch('book.price', function(newValue, oldValue) {
+                if (FLOAT_REGEXP.test(newValue)) {
+//                    ctrl.$setValidity('price', true);
+                    scope.price = true;
+                    return parseFloat(newValue.replace(',', '.'));
                 } else {
-                    ctrl.$setValidity('price', false);
+//                    ctrl.$setValidity('price', false);
+                    scope.price = false;
                     return undefined;
                 }
             });
@@ -170,6 +170,9 @@ gitleBook.directive('starRating', function() {
 });
 
     function isValidISBN(isbn){
+        if(isbn == undefined){
+            return false;
+        }
         isbn = isbn.replace(/\-/g,'');
         isbn = isbn.replace(/\+/g,'');
 
@@ -196,4 +199,13 @@ gitleBook.directive('starRating', function() {
 
 //    return ((sum % 11) == 0);
             return false;
+    }
+
+    function formatPrice(price){
+        if(price.indexOf('.') == -1){
+            return price.concat('.00');
+        }
+        else if(price.indexOf('.') > 0 && price.indexOf('.') == (price.length - 2)){
+            return price.concat('0');
+        }
     }

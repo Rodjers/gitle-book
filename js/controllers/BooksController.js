@@ -16,6 +16,8 @@ function BooksController($scope, angularFireCollection) {
             var test = {Name: 'Oddgeir'};
             book.loaners.push(test);
 
+            book.price = formatPrice(book.price);
+
             $scope.books.add(book);
             $('#bookAddedModal').modal('show');
             document.getElementById('registerBookForm').reset();
