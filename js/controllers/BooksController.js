@@ -97,6 +97,10 @@ function BooksController($scope, angularFireCollection) {
         $scope.index = index;
         $('#borrowBookModal').modal("show");
     };
+    $scope.listBorrowersModal = function(index){
+        $scope.loanerList = $scope.books[index].loaners;
+        $('#borrowersModal').modal("show");
+    }
 
 
 }

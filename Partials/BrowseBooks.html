@@ -27,10 +27,11 @@
                 <td><star-rating numberOfStars="6" rating="{{ book.rating }}"></star-rating></td>
                 <td>{{ book.price }}$</td>
                 <td>{{ book.isbn }}</td>
-                <td>
-                    <span ng-click="borrowBookModal($index)" class="glyphicon glyphicon-book"></span>
-                    <span ng-click="editBookModal($index)" class="glyphicon glyphicon-edit"></span>
-                    <span ng-click="delBook($index)" class="glyphicon glyphicon-trash"></span>
+                <td class="tooltip-icon">
+                    <span data-toggle="tooltip" data-placement="top" title="Borrow book" ng-click="borrowBookModal($index)" class="glyphicon glyphicon-book tooltip-icon"></span>
+                    <span data-toggle="tooltip" data-placement="bottom" title="Edit book" ng-click="editBookModal($index)" class="glyphicon glyphicon-edit tooltip-icon"></span>
+                    <span data-toggle="tooltip" data-placement="bottom" title="Delete book" ng-click="delBook($index)" class="glyphicon glyphicon-trash tooltip-icon"></span>
+                    <span data-toggle="tooltip" data-placement="bottom" title="List borrowers" ng-click="listBorrowersModal($index)" class="glyphicon glyphicon-list tooltip-icon"></span>
                 <td>
             </tr>
         </tbody>
@@ -113,4 +114,28 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="borrowersModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                    <h4 class="modal-title">Borrowers</h4>
+                </div>
+                <div class="modal-body">
+                    <ul ng-repeat="borrower in loanerList">
+                         <li>{{  borrower.Name }}</li>
+
+                    </ul>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+    </script>
 </div>
+

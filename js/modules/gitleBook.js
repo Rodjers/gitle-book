@@ -209,3 +209,5 @@ gitleBook.directive('starRating', function() {
             return price.concat('0');
         }
     }
+
+
