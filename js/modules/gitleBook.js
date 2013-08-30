@@ -101,11 +101,13 @@ gitleBook.directive('starRatingInput', function() {
 
             return function(scope, element, attrs){
 
+                scope.validRating = false;
 
                 scope.$watch(attrs.model, function(newValue, oldValue){
+
                     for(var i = (numberOfStars - 1); i > -1; i-- ){
                         if(i > (numberOfStars - 1 - newValue)){
-
+                            scope.validRating = true;
                             angular.element(element.children()[i]).removeClass('glyphicon-star-empty');
                             angular.element(element.children()[i]).addClass('glyphicon-star');
                         }
