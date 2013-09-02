@@ -83,12 +83,10 @@ function BooksController($scope, angularFireCollection) {
                 book.loaners = [];
                 book.loaners.push(loaner);
                 $scope.books.update(book);
-                alert('First Book loaned');
             }
             else {
                 book.loaners.push(loaner);
                 $scope.books.update(book);
-                alert('Book loaned');
             }
             $('#borrowBookModal').modal('hide');
         }
