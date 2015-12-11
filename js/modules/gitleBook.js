@@ -12,12 +12,12 @@ var gitleBook = angular.module('gitleBook', ['firebase'], function($routeProvide
         .when('/register',
         {
             controller: 'BooksController',
-            templateUrl: 'Partials/RegisterEbook.html'
+            templateUrl: 'views/RegisterEbook.html'
         })
         .when('/browse',
         {
             controller: 'BooksController',
-            templateUrl: 'Partials/BrowseBooks.html'
+            templateUrl: 'views/BrowseBooks.html'
         })
         .otherwise({ redirectTo:'/register'});
 });
