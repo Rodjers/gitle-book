@@ -1,4 +1,4 @@
 {
   "firebase": "gitlebook",
-  "public": "."
+  "public": "public"
 }
